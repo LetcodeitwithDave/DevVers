@@ -1,0 +1,257 @@
+{% extends "Blog/layout.html" %}
+{% load static %}
+{% block body %}
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link href="{% static 'css/setting.css' %}" rel="stylesheet" />
+        </head>
+        <body>
+                <div class="container-xl px-4 mt-4">
+                <!-- Account page navigation-->
+                <nav class="nav nav-borders">
+                    <a class="nav-link active ms-0" href="https://www.bootdey.com/snippets/view/bs5-edit-profile-account-details"
+                        target="__blank">Profile</a>
+                    
+                </nav>
+                <hr class="mt-0 mb-4">
+                <div class="row">
+                    
+                    <!-- Profile picture card-->
+                    <div class="card mb-4 mb-xl-0">
+                        <div class="card-header">Profile Picture</div>
+                        <div class="card-body text-center">
+                            <!-- Profile picture image-->
+                            <img class="img-account-profile rounded-circle mb-2"
+                                src="{{change.profile_img.url }}" alt="">
+                            <!-- Profile picture help block-->
+                            <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+                            <!-- Profile picture upload button-->
+                        </div>
+                    </div>
+                    <form class="form-horizontal ng-pristine ng-valid" action="{% url 'blog-setting' %}" method="POST" enctype="multipart/form-data">
+                        {%  csrf_token %}
+                        <div class="row">
+                                
+                            <!-- User -->
+                            <div class="col-xl-5">
+                                <br>
+                                <br>
+                                <!-- Account details card-->
+                                <div class="card mb-4">
+                                    <br>
+                                    <div class="h4 text-center">User</div>
+                                    <div class="card-body">
+                                        <div class="container">
+
+                                            <div class="form-group">
+                                                <label class="col control-label" for="inputContact1">
+                                                    <p>Name</p>
+                                                </label>
+                                                <div class="col-sm-10">
+                                                    <input class="form-control" id="firstname" type="text" placeholder=""
+                                                        name = "firstname" value="{{change.firstname}}">
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="form-group">
+                                                <label class="col control-label" for="email">
+                                                    <p>Email</p>
+                                                </label>
+                                                <div class="col-sm-10">
+                                                    <input class="form-control" id="email" type="email"
+                                                    name = "email" value="{{change.email}}">
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="form-group">
+                                                <label class="col control-label" for="inputContact2">
+                                                    <p>Profile Picture</p>
+                                                    <div class="small font-italic text-muted mb-4">
+                                                        JPG or PNG no larger than 5 MB
+                                                    </div>
+                                                </label>
+                                                <div class="col-sm-10">
+                                                    {% for profile_picture in profile_img %}
+                                                        {{profile_picture}}
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Work -->
+                            <div class="col-xl-5">
+                                <br>
+                                <br>
+                                <!-- Account details card-->
+                                <div class="card mb-4">
+                                    <br>
+                                    <div class="h4 text-center">Work</div>
+                                    <div class="card-body">
+                                        <div class="container">
+
+                                            <div class="form-group">
+                                                <label class="col control-label" for="inputContact1">
+                                                    <p>Work</p>
+                                                </label>
+                                                <div class="col-sm-10">
+                                                    <input class="form-control" id="work" type="text" placeholder=""
+                                                        name="work" value="{{change.work}}">
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="form-group">
+                                                <label class="col control-label" for="inputContact2">
+                                                    <p>Education</p>
+                                                </label>
+                                                <div class="col-sm-10">
+                                                    <input class="form-control" id="education" type="text"
+                                                        name="education" value="{{change.education}}">
+                                                </div>
+                                            </div>
+                                            <br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Basic -->
+                            <div class="col-xl-5">
+                                
+                                <!-- Account details card-->
+                                <div class="card mb-4">
+                                    <br>
+                                    <div class="h4 text-center">Basic</div>
+                                    <div class="card-body">
+                                        <div class="container">
+
+                                            <div class="form-group">
+                                                <label class="col control-label" for="inputContact1"><p>Website Url</p></label>
+                                                <div class="col-sm-10">
+                                                    <input class="form-control" id="website" type="text" 
+                                                        name = "website"  value="{{change.website}}">
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="form-group">
+                                                <label class="col control-label" for="inputContact2">
+                                                    <p>Location</p>
+                                                </label>
+                                                <div class="col-sm-10">
+                                                    <input class="form-control" id="location" type="text"
+                                                        name = "location" value="{{change.location}}">
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="form-group">
+                                                <label class="col control-label" for="inputContact3">
+                                                    <p>Bio</p>
+                                                </label>
+                                                <div class="col-sm-10" >
+                                                        <textarea  name="bio" rows="10" id="bio" class="form-control">
+                                                            {{change.bio | safe}}
+                                                        </textarea>
+                                                        
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="form-group">
+                                                <label class="col control-label" for="inputContact3">
+                                                    My Tags
+                                                    <p>what are your favourite hashtags ?</p>
+                                                </label>
+                                                <div class="col-sm-10" >
+                                                        <textarea  name="tag" rows="10" id="tag" class="form-control">
+                                                            {{change.tag | safe}}
+                                                        </textarea>
+                                                       
+                                                </div>
+                                            </div>
+                                            <br>
+                                        </div>
+                                            
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Coding -->
+                            <div class="col-xl-5">
+                                <!-- Account details card-->
+                                <div class="card mb-4">
+                                    <br>
+                                    <div class="h4 text-center">Coding</div>
+                                    <div class="card-body">
+                                        
+                                        <div class="container">
+
+                                            <div class="form-group">
+                                                <label class="col control-label" for="inputContact1">
+                                                    Currently Learning
+                                                    <p>What are you learning right now?</p>
+                                                </label>
+                                                <div class="col-sm-10">
+                                                    <input class="form-control" id="learning" type="text" placeholder=""
+                                                        name = "learning" value="{{change.learning}}">
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="form-group">
+                                                <label class="col control-label" for="inputContact2">
+                                                    Available for
+                                                    <p>What kind of collaborations or discussiions are you available for?</p>
+                                                </label>
+                                                <div class="col-sm-10">
+                                                    <input class="form-control" id="available" type="text"
+                                                        name = "available" value="{{change.available}}">
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="form-group">
+                                                <label class="col control-label" for="inputContact3">
+                                                    <p>Skills/Language</p>
+                                                </label>
+                                                <div class="col-sm-10">
+                                                    <input class="form-control" id="skill" type="text"
+                                                        name = "skill" value="{{change.skill}}">
+                                                        
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="form-group">
+                                                <label class="col control-label" for="inputContact3">
+                                                    <p>Project</p>
+                                                </label>
+                                                <div class="col-sm-10">
+                                                    <input class="form-control" id="project" type="text"
+                                                        name = "project"   value="{{change.project}}">
+                                                        
+                                                </div>
+                                            </div>
+                                            <br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <br>
+                                 
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button  type ="submit"  class="btn btn-info">
+                                    Update
+                                </button>
+                            </div>
+                        </div>
+                        <br>
+                    </form>
+                </div>
+            </div>
+           
+        </body>
+    </html>
+{% endblock %}

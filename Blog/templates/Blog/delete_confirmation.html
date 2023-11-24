@@ -1,0 +1,43 @@
+{% extends 'Blog/layout.html' %}
+
+{% block body %}
+    {% if post_id %}
+
+        <div style="margin-top: 200px;" class  ='container'>
+            <div class=row>
+                <!-- Blog entries-->
+                <div class="col-lg-8">
+                        <!-- Featured blog post-->
+                        <div class=>
+                            <h2> Are you Sure?</h2>
+                            <br>
+                            <h3>Are you sure you want to delete the selected post?</h3>
+                            <br>
+                            <br>
+                            <br>
+                            <div class="card-body">
+                                <a  style="text-decoration: none;" href="{% url 'blog-delete' post_id.id %}">
+                                    <button  type="submit" class="btn btn-danger"> 
+                                        <h2>Yes, i'm sure</h2>
+                                    </button>
+                                </a>
+                                
+                                <a style="margin-left: 20px;"  href="{% url 'blog-profile' %}">
+                                    <button  type="submit" class="btn btn-secondary"> 
+                                        <h2>No, take me back</h2>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+        
+    {% else %}
+        <h1>nothing is here to delete</h1>
+    {% endif %}
+{% endblock %}
+
+{% block footer  %}
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'Blog/layout.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        {% block body %}
+            {% if value %}
+                <div class="container">
+                    {% if search_result %}
+                        <h1>Results available for "{{value}}"</h1>
+                        {% for search_result in search_result %}
+                            <div class="row">
+                                <!-- Blog entries-->
+                                <div class="col-lg-8">
+                                        <!-- Featured blog post-->
+                                        <div class="card mb-4">
+                                            <a href="#!"> <img class="card-img-top" src="{{ search_result.post_img.url }}" alt="..." /> </a>
+                                            <div class="card-body">
+                                                <div class="small text-muted">Posted on {{ search_result.created|date:"M d, Y"}} by {{request.user.username|title}}</div>
+                                                <h2 class="card-title">{{ search_result.title | title }}</h2>
+                                                <p class="card-text">{{search_result.content |linebreaks| truncatewords:30}}</p>
+                                                <a class="btn btn-info" href="{% url 'blog-readpost' search_result.id%}">Read more →</a>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                            <h1>NO RESUTLT FOUND FOR "{{value}}"</h1>
+                    {% endif %}
+                        
+                    
+                </div>        
+            {% else %}
+                <h1>Opps you didn't search for anything</h1>
+            {% endif %}
+        {% endblock %}
+        
+        {% block footer %}
+        {% endblock %}
+    </body>
+</html>
+    

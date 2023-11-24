@@ -1,0 +1,91 @@
+{% extends "Blog/layout.html" %}
+{% load static %}
+{% block body %}
+    <!DOCTYPE html>
+    <html lang="en">
+
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link href="{% static 'css/profile.css' %}" rel="stylesheet" />
+        </head>
+
+        <body style="color: white;">
+            <section class="h-100 gradient-custom-2">
+                <div class="container py-5 h-100">
+                    <div class="row d-flex justify-content-center align-items-center h-100">
+                        <div class="col col-lg-9 col-xl-7">
+                            <div class="card">
+                                <div class="rounded-top text-white d-flex flex-row"
+                                    style="background-color: #000; height:200px;">
+                                    <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
+                                        <img src="{{profile.profile_img.url }}"
+                                            alt="profile image" class="img-fluid img-thumbnail mt-4 mb-2"
+                                            style="width: 150px; z-index: 1">
+                                        <a href="{% url 'blog-setting' %}" type="submit" 
+                                                data-mdb-ripple-color="dark" class="btn btn-info"
+                                                style="z-index: 1;">
+                                                Edit Profile
+                                        </a>
+                                    </div>
+                                    <div class="ms-3" style="margin-top: 80px;">
+                                        <h5>{{profile.firstname}}</h5>
+                                        <p>{{profile.location}}</p>
+                                    </div>
+                                </div>
+                                <div class="p-4" >
+                                    <div class="d-flex justify-content-end text-center py-1">
+                                        <div>
+                                            <p class="mb-1 h5">12</p>
+                                            <p class="small text-muted mb-0">Artile Published</p>
+                                        </div>
+                                        <div class="px-3">
+                                            <p class="mb-1 h5">0</p>
+                                            <p class="small text-muted mb-0">Followers</p>
+                                        </div>
+                                        <div>
+                                            <p class="mb-1 h5">0</p>
+                                            <p class="small text-muted mb-0">Following</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body p-4 ">
+                                    <div class="mb-5">
+                                        <p class="lead fw-normal mb-1">About</p>
+                                        <div class="p-4" style="background-color: #000;">
+                                            <p class="font-italic mb-1" style="white-space: pre-wrap;" >{{profile.bio}}</p>
+
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mb-4">
+                                        <p class="lead fw-normal mb-0">Recent Articles</p>
+                                    </div>
+                                    
+                                    <div class="row g-2">
+                                        {% for article_written in article_written %}
+                                            {% if article_written.post_img %}
+                                                <a href="#!"> <img class="card-img-top" src="{{ article_written.post_img.url }}" alt="..." /> </a>
+                                            {% else %}
+                                            {% endif %}
+                                            <div class="card-body">
+                                                <div class="small text-muted">Posted on {{ article_written.created|date:"M d, Y"}} by {{request.user.username|title}}</div>
+                                                <h2 class="card-title h4">{{ article_written.title | title }}</h2>
+                                                <p class="card-text">{{article_written.content |linebreaks| truncatewords:30}}</p>
+                                                <a class="btn btn-info" href="{% url 'blog-readpost' article_written.id%}">Read more →</a>
+                                                <a class="btn btn-info" href="{% url 'blog-edit' article_written.id%}">Edit Post →</a>
+                                                <a class="btn btn-info" href="{% url 'blog-delete_confirm' article_written.id%}">Delete Post →</a>
+
+                                                <hr>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </body>
+    </html>
+{% endblock %}

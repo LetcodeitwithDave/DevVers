@@ -1,0 +1,33 @@
+
+{% extends 'Blog/layout.html' %}
+{% block body %}
+        <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+            <div class="card">
+              <div class="card-body">
+                <h2 class="card-title text-center">Sign In</h2>
+                <form method="post" action="{% url 'blog-login' %}">
+                  {% csrf_token %}
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username">
+                  </div>
+                  <br>
+
+                  <div class="form-group">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
+                  </div>
+                  <br>
+                  {% for message in messages %}
+                        <div class="alert {% if message.tags %}alert-{{message.tags}}"{% endif %}>
+                          {{message }}
+                        </div>
+                  {% endfor %}
+                  <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                  <br>
+                  <br>
+                  <p>Don't have an account? <a href="{% url 'blog-register' %}">Sign Up</a></p>
+                </form>
+              </div>
+            </div>
+          </div>
+{% endblock %}
+

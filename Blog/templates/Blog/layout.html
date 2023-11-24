@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en" data-bs-theme="dark">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+        <link  rel="stylesheet" type="text/css"  href="{% static 'css/styles.css' %}" />     
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+       
+
+        {% if title %}
+            <title> DevVers-{{title}}</title>
+        {% else %}
+            <title> DevVers</title>
+        {% endif %}
+    </head>
+    <body >
+        <style>        
+            .navbar.navbar-expand-lg{
+                background-color: #37474f;
+            }
+            .down{
+                background-color: #37474f;
+            }
+            
+            
+        </style>
+        {% block navigations %}
+            <nav class="navbar navbar-expand-lg">
+                <div class="container">
+                    <a class="navbar-brand" href="/">DevVers</a>
+                    <form action="{%  url 'blog-search' %}" method = "post">
+                        {% csrf_token %}
+                        <div class="input-group">
+                            <input type="search" name="search" class="form-control rounded" placeholder="Search Post" aria-label="Search Post" aria-describedby="search-addon">
+                            <button  type="button" class="btn btn-outline-info"> search</button>
+                        </div>
+                    </form>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                            {% if user.is_authenticated %}
+                                <a  class="btn btn-outline-info" href="{% url 'blog-post'%}" >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                                        <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>   
+                                    </svg> Create Post
+                                </a>
+                                <a class="nav-link" href="{% url 'blog-home' %}">Home</a>
+                                <a class="nav-link" href="{% url 'blog-profile' %}">Profile</a>
+                                <a class="nav-link" href="{% url 'blog-logout' %}">Logout</a>
+                                
+                                    
+                            {% else %}
+                                <a class="nav-link" href="{% url 'blog-register' %}">Sign Up</a>
+                                <a class="nav-link" href="{% url 'blog-login' %}">Login</a>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- Footer-->
+                    
+        {% endblock %}     
+        <div class="container">
+            {% block body %}
+            {% endblock %}
+        </div>
+        
+        {% block footer %}
+            <footer class="py-5 down">
+                <div class="container">
+                    <p class="m-0 text-center text-white"><a href="{% url 'blog-home' %}">DevVers</a> - A Place To Turn Your Thought Into Reality</p>
+                </div>
+            </footer>
+        {% endblock %}
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        
+    </body>
+</html>

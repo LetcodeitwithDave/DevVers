@@ -1,0 +1,110 @@
+{% extends "Blog/layout.html" %}
+{% load static %}
+{% block body %}
+    <!DOCTYPE html>
+    <html lang="en" >
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <style>
+                .btn.read-more{ 
+                    background-color: #008080; 
+                }  
+                .feature{
+                    color: white;
+                }
+               .container.py-4{
+                color: white;
+               }
+               .card-header{
+                    background-color:#008080 ;
+               }
+              
+            </style>
+        </head>
+        <body>
+            
+            <div class="container py-4">
+                <div align="center">
+
+                    <!-- <div class="text-center my-5"> -->
+                        <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+                            <div class="container-fluid py-5">
+
+                                <h1 class="display-5 fw-bold welcome">Welcome to DevVers!</h1>
+                                <p class="col-md-8 fs-4">
+                                    A Place To Turn Your Thought Into Reality
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Page content-->
+            <div class="container">
+                <div class="row">
+                    <!-- Blog entries-->
+                    <div class="col-lg-8">
+                        <div  class="col-lg-16">
+                            <!-- Featured blog post-->
+                            
+                        </div>
+                        <!-- Nested row for non-featured blog posts-->
+                        <div class="row">
+                            {% if post %}
+                                {% for post in post %}
+                                    <div class="col-lg-6">
+                                        <!-- Blog post-->
+                                        <div class="card mb-4">
+                                            {% if post.post_img %}
+                                                <a href="#!"> <img class="card-img-top" src="{{ post.post_img.url }}" alt="..." /> </a>
+                                            {% else %}
+                                            {% endif %}
+                                            <div class="card-body">
+                                                <div class="small text-muted">Posted on {{ post.created|date:"M d, Y"}} by {{request.user.username|title}}</div>
+                                                <h2 class="card-title h4">{{ post.title | title }}</h2>
+                                                <p class="card-text">{{post.content |linebreaks| truncatewords:30}}</p>
+                                                <a class="btn btn-info" href="{% url 'blog-readpost' post.id%}">Read more →</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+
+                            {% endif %}
+                        </div>
+                        
+                    </div>
+   
+                    <div class="col-lg-4">
+                        
+                        <!-- Categories widget-->
+                        <div class="card mb-4">
+                            <div class="card-header">My Tags</div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <ul class="list-unstyled mb-0">
+                                            <li style="white-space: pre-wrap;">{{tag.tag}}</li>
+                                        </ul>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+            
+            
+            <!-- Core theme JS-->
+            <script src="{% static 'js/scripts.js' %}"></script>
+            
+        </body>
+    </html> 
+{% endblock body %}
+   
+    4167
+            

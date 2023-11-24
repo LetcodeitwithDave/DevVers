@@ -1,0 +1,45 @@
+{% extends 'Blog/layout.html' %}
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="col-lg-6 offset-lg-3">
+            {% if edit %}
+                <form action="{% url 'blog-edit' edit.id%}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        <!-- <label for="formFile" class="form-label">Change Cover Image</label> -->
+                        {{data.post_img}}
+                        <br>
+                        {% if  edit.post_img %}
+                            <img src="{{edit.post_img.url}}" alt="current image" class="img-responsive" style="width: 100%; float: center; margin-right: 10px;" >
+                        {% else %}
+                        {% endif %}
+                    <br>
+                    <br>
+                    <div class="form-group">
+                        <input type="text" name="title" id="title"  class="form-control" value="{{edit.title}}">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <textarea name="content" id="content" class="form-control" rows="10" placeholder="Write your post here...">
+                            {{edit.content}}
+                        </textarea>
+                    </div>
+                    <br>
+                    {% for message in messages %}
+                            <div class="alert {% if message.tags %}alert-{{message.tags}}"{% endif %}>
+                            {{message }}
+                            </div>
+                    {% endfor %}
+                    <br>
+                    <button  type ="submit"  class="btn btn-outline-primary">
+                        Save
+                    </button>
+                    <br>
+                    <br>
+                </form>
+            {% else %}
+                <h1>This if statement is not working try debugging it</h1>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

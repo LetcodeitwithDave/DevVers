@@ -1,0 +1,94 @@
+{% extends 'Blog/layout.html' %}
+    {% block navigations %}
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="/">DevVers</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <a class="nav-link" href="{% url 'blog-home' %}">Home</a>
+                            <a class="nav-link" href="{% url 'blog-profile' %}">Profile</a>
+                            <a class="nav-link" href="{% url 'blog-logout' %}">Logout</a>
+                
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Footer-->
+    {% endblock %}
+
+{% block body %}
+    <style>
+        .navbar.navbar-expand-lg{
+            background-color: #37474f;
+        }
+        .transparent-input{
+            border: none;
+            border-bottom: 1px solid transparent;
+            background: none;
+            box-shadow: none;
+            padding: 0;
+        }
+        .transparent-input:focus{
+            outline: none;
+            box-shadow: none;
+        }
+        .transparent-input::selection{
+            background: transparent;
+            color: inherit;
+        }
+        .transparent-input::-moz-selection{
+            background: transparent;
+        }
+        #title::placeholder{
+            font-size: 35px;
+            /* font-weight: bold; */
+        }
+        #content::placeholder{
+            font-size: 40px;
+            /* font-weight: bold; */
+        }
+        .height{
+         height: 40px;   
+        }
+    </style>
+
+
+    <br>
+    <div class="container">
+        <div class="col-lg-6 offset-lg-3">
+            <form action="{% url 'blog-post' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <p>Add Cover Image:</p>
+                {% for data in data %}
+                    {{data}}
+                {% endfor %}
+                <br>
+                <br>
+                <div class="form-group">
+                    <input type="text" name="title" id="title" class="form-control transparent-input height" placeholder="Article Title...">                
+                </div>
+                <br>
+                <div class="form-group">
+                    <textarea name="content" id="content" class="form-control transparent-input" rows="10" placeholder="Write your post here..."></textarea>
+                </div>
+                <br>
+                {% for message in messages %}
+                        <div class="alert {% if message.tags %}alert-{{message.tags}}"{% endif %}>
+                          {{message }}
+                        </div>
+                {% endfor %}
+                <br>
+                    
+                <button  type ="submit"  class="btn btn-info">
+                    Post
+                </button>
+                <br>
+                <br>
+            </form>
+        </div>
+    </div>
+{% endblock %}
