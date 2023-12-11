@@ -30,8 +30,8 @@ def register(request):
             username = form.cleaned_data['username']
             firstname = form.cleaned_data['first_name']
             email =  form.cleaned_data['email']
-            password = form.cleaned_data['password1']
-            Profile.objects.create(username=username, firstname=firstname, email=email, password=password)
+            # password = form.cleaned_data['password1']
+            Profile.objects.create(username=username, firstname=firstname, email=email)
             Post.objects.create(authour=username, content = "", title = "")
 
             messages.success(request, f'Account created successfully for {username}.')
@@ -40,7 +40,6 @@ def register(request):
     else:
         form = RegisterForm()
     return render(request, "Blog/register.html", {'form':form} )
-
 
 def loginpage(request):
     if request.user.is_authenticated:
@@ -145,9 +144,7 @@ def delete(request, delete_id):
         data.delete()
         return redirect('/profile/')
 
-# sample blog home page display
-def test(request):
-    return render (request, 'Blog/blog-template.html')
+
 
 
 
