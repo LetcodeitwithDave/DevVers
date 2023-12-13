@@ -14,7 +14,7 @@ urlpatterns = [
     path('edit/<int:edit_id>', views.edit, name="blog-edit"),
     path('delete/<int:delete_id>', views.delete, name = 'blog-delete'),
     path('delete_confirm/<int:id>', views.delete_confirmation, name = 'blog-delete_confirm'),
-    path('test/', views.test, name = 'blog-test'),
+
     path('blog/search/', views.search, name = 'blog-search'),
     path('blog/api/', api.post_list, name = 'blog-api'),
 
