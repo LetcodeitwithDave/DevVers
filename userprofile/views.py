@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 @login_required(login_url='/login/')
 def profile(request):
     profile =  Profile.objects.get(username = request.user.username)
-    article_written = Post.objects.order_by('-created')
+    article_written = Post.objects.filter(authour = request.user).order_by('-created')
     context = {
         'profile': profile,
         'article_written':article_written

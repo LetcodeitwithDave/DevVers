@@ -10,7 +10,7 @@ from .models import Profile, Post
 # Create your views here.
 @login_required(login_url='/login/')
 def home(request):
-    post = Post.objects.order_by('-created')
+    post = Post.objects.filter(authour = request.user).order_by('-created')
     profile =  Profile.objects.get(username = request.user.username)
  
     context =  {
@@ -104,6 +104,7 @@ def post(request):
         if form.is_valid():
             title = request.POST['title']
             content = request.POST['content']
+            authour = request.user.username
             picture = form.cleaned_data['post_img']
             if len(title )< 1:
                 messages.warning(request, 'Post must have a title!')
@@ -111,7 +112,7 @@ def post(request):
             elif len(content) <3:
                 messages.warning(request, 'Content must contain more than 2 character.')
             else:
-                Post.objects.create(title=title, content=content, post_img=picture)
+                Post.objects.create(title=title, content=content, authour = authour, post_img=picture)
                 return redirect('/home/')
     else:
         form = ImageForm()
