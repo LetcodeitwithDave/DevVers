@@ -68,10 +68,8 @@ def logoutpage(request):
     messages.success(request, 'Logout successful.')
     return redirect('/login/')
 
-    
 
-
-
+@login_required(login_url='/login/')
 def readpost(request, post_id):
     post = Post.objects.get(id= post_id)
     username = request.user.username
@@ -121,7 +119,7 @@ def post(request):
 def search (request):
     if request.method == 'POST':
         search_value =  request.POST['search']
-        search_result = Post.objects.filter(title__contains =search_value)
+        search_result = Post.objects.filter(title__contains =search_value,authour = request.user).order_by('-created')
     context = {
         'value': search_value,
         'search_result': search_result

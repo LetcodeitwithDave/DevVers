@@ -20,7 +20,7 @@
                                         <div class="card mb-4">
                                             <a href="#!"> <img class="card-img-top" src="{{ search_result.post_img.url }}" alt="..." /> </a>
                                             <div class="card-body">
-                                                <div class="small text-muted">Posted on {{ search_result.created|date:"M d, Y"}} by {{request.user.username|title}}</div>
+                                                <div class="small text-muted">Posted on {{ search_result.created|date:"M d, Y"}} by {{search_result.authour|title}}</div>
                                                 <h2 class="card-title">{{ search_result.title | title }}</h2>
                                                 <p class="card-text">{{search_result.content |linebreaks| truncatewords:30}}</p>
                                                 <a class="btn btn-info" href="{% url 'blog-readpost' search_result.id%}">Read more →</a>
