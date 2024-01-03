@@ -1,6 +1,6 @@
 from django.urls import path
 from  . import views
-from core import views as api
+
 from django.conf.urls.static import static
 from django.conf import settings
 urlpatterns = [
@@ -16,7 +16,6 @@ urlpatterns = [
     path('delete_confirm/<int:id>', views.delete_confirmation, name = 'blog-delete_confirm'),
 
     path('blog/search/', views.search, name = 'blog-search'),
-    path('blog/api/', api.post_list, name = 'blog-api'),
 
 ]
 if settings.DEBUG:
